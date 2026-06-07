@@ -1,0 +1,332 @@
+:Website Romantis Untuk Ayu:index.html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spesial Untuk Ayu Tercinta ❤️</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        romantic: ['"Dancing Script"', 'cursive'],
+                        sans: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        love: {
+                            50: '#fff0f3',
+                            100: '#ffccd5',
+                            200: '#ffb3c1',
+                            300: '#ff8fa3',
+                            400: '#ff758f',
+                            500: '#ff4d6d',
+                            600: '#c9184a',
+                            700: '#a4133c',
+                            800: '#800f2f',
+                            900: '#590d22',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff0f3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff8fa3;
+            border-radius: 10px;
+        }
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-tr from-[#ffe5ec] via-[#ffccd5] to-[#ffb3c1] min-height-screen font-sans overflow-x-hidden text-gray-800 selection:bg-love-200">
+
+    <!-- Efek Floating Hearts Canvas -->
+    <canvas id="heartCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Musik Latar Belakang (Menggunakan instrumen piano romantis default) -->
+    <audio id="bgMusic" loop>
+        <!-- Musik instrumental romantis royalty-free -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Kontainer Musik Terapung -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="musicToggleBtn" onclick="toggleMusic()" class="glass p-3 rounded-full text-love-600 shadow-lg hover:scale-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+            <i data-lucide="music" class="w-5 h-5 animate-spin-slow"></i>
+            <span id="musicStatusText" class="text-xs font-semibold pr-1 hidden md:inline">Putar Musik</span>
+        </button>
+    </div>
+
+    <!-- Wrapper Utama -->
+    <main class="relative z-10 max-w-lg mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-screen">
+        
+        <!-- ================= HALAMAN 1: GERBANG PEMBUKA ================= -->
+        <section id="gatePage" class="w-full flex flex-col items-center text-center py-10 transition-all duration-700">
+            <div class="floating-element mb-6 relative">
+                <div class="w-40 h-40 rounded-full border-4 border-white shadow-xl overflow-hidden bg-love-100 flex items-center justify-center relative z-10">
+                    <!-- Ilustrasi SVG romantis atau foto default -->
+                    <svg class="w-24 h-24 text-love-400" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+                <!-- Hiasan melingkar -->
+                <div class="absolute -inset-2 bg-gradient-to-r from-love-300 to-love-500 rounded-full blur opacity-30 animate-pulse"></div>
+            </div>
+
+            <div class="glass rounded-3xl p-8 shadow-2xl w-full border-love-100 mb-6">
+                <h1 class="font-romantic text-5xl text-love-600 mb-2">Halo Ayu Cantik ✨</h1>
+                <p class="text-sm text-gray-600 mb-6 font-medium">Ada sebuah pesan rahasia yang dibuat khusus untukmu hari ini. Siap membukanya?</p>
+                
+                <div class="mb-6">
+                    <label class="block text-xs font-bold uppercase text-love-500 tracking-wider mb-2">Masukkan Nama Panggilan Kamu</label>
+                    <input type="text" id="nameInput" placeholder="Ketik 'Ayu' di sini..." class="w-full px-4 py-3 rounded-xl border border-love-200 focus:outline-none focus:ring-2 focus:ring-love-400 text-center font-semibold text-lg shadow-sm">
+                    <p id="nameError" class="text-red-500 text-xs mt-2 hidden">Ketik nama kamu dulu ya, 'Ayu' sayang ❤️</p>
+                </div>
+
+                <button onclick="bukaGerbang()" class="w-full bg-gradient-to-r from-love-500 to-love-600 hover:from-love-600 hover:to-love-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-love-300/50 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                    <span>Buka Pesan Spesial</span>
+                    <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 2: HALAMAN UTAMA (Akan muncul setelah gerbang dibuka) ================= -->
+        <section id="mainContent" class="w-full hidden transition-all duration-700">
+            
+            <!-- Profil Singkat Cinta -->
+            <div class="glass rounded-3xl p-6 shadow-xl w-full text-center mb-6 relative overflow-hidden">
+                <div class="absolute -right-8 -top-8 w-24 h-24 bg-love-200 rounded-full opacity-30 blur-xl"></div>
+                
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="w-12 h-12 rounded-full bg-love-100 flex items-center justify-center text-love-500">
+                        <i data-lucide="sparkles" class="w-6 h-6 animate-pulse"></i>
+                    </div>
+                    <div class="text-left">
+                        <h2 class="text-xs font-bold text-love-500 uppercase tracking-widest">Spesial Untuk</h2>
+                        <p class="font-romantic text-3xl text-love-600 leading-none">Ayu Tercinta</p>
+                    </div>
+                </div>
+
+                <div class="surat-cinta p-4 bg-white/60 rounded-2xl text-left text-sm leading-relaxed text-gray-700 border border-white/80 shadow-inner">
+                    <p class="mb-3">Hai Ayu sayang, lewat website kecil yang sengaja kubuat ini, aku ingin mengungkapkan beberapa hal yang mungkin jarang terucap langsung.</p>
+                    <p class="mb-3">Sejak kehadiranmu, setiap hari terasa jauh lebih cerah dan hangat. Senyumanmu, tawamu, bahkan hal-hal kecil menggemaskan yang kamu lakukan selalu sukses membuat hariku jadi luar biasa indah.</p>
+                    <p class="font-semibold text-love-600 italic">"Terima kasih sudah menjadi bagian terindah dalam perjalanan hidupku."</p>
+                </div>
+            </div>
+
+            <!-- TAB NAVIGASI ROMANTIS -->
+            <div class="flex gap-2 mb-6 w-full">
+                <button onclick="switchTab('kenangan')" id="btnTabKenangan" class="flex-1 py-3 px-2 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all shadow-sm glass text-love-600 border-love-300">
+                    <i data-lucide="image" class="w-4 h-4"></i>
+                    <span>Galeri Foto</span>
+                </button>
+                <button onclick="switchTab('kuis')" id="btnTabKuis" class="flex-1 py-3 px-2 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all shadow-sm bg-white/40 text-gray-600">
+                    <i data-lucide="gamepad-2" class="w-4 h-4"></i>
+                    <span>Kuis Cinta</span>
+                </button>
+                <button onclick="switchTab('pesan')" id="btnTabPesan" class="flex-1 py-3 px-2 rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all shadow-sm bg-white/40 text-gray-600">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Kirim Balasan</span>
+                </button>
+            </div>
+
+            <!-- ISI TAB: KENANGAN (GALERI FOTO INTERAKTIF) -->
+            <div id="tabKenangan" class="w-full">
+                <div class="glass rounded-3xl p-6 shadow-xl w-full mb-6">
+                    <h3 class="font-romantic text-3xl text-love-600 text-center mb-2">Galeri Keindahanmu</h3>
+                    <p class="text-xs text-gray-500 text-center mb-6">Beberapa gambaran kecil betapa berharganya dirimu ✨</p>
+                    
+                    <!-- Frame Foto Utama dengan Slider Mini -->
+                    <div class="relative w-full aspect-square bg-love-50 rounded-2xl overflow-hidden shadow-md border-4 border-white mb-4 group">
+                        <img id="galleryImg" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=600" alt="Galeri Ayu" class="w-full h-full object-cover transition-all duration-500">
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+                            <p id="galleryDesc" class="text-sm font-semibold">Senyum manis Ayu yang selalu menghangatkan hatiku.</p>
+                        </div>
+                    </div>
+
+                    <!-- Indikator/Navigasi Galeri -->
+                    <div class="flex justify-between items-center">
+                        <button onclick="prevGallery()" class="p-2 rounded-lg bg-love-100 text-love-600 hover:bg-love-200 transition-all">
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        </button>
+                        <span id="galleryCounter" class="text-xs font-bold text-love-500 bg-love-50 px-3 py-1 rounded-full">1 / 4</span>
+                        <button onclick="nextGallery()" class="p-2 rounded-lg bg-love-100 text-love-600 hover:bg-love-200 transition-all">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Tombol Tambah Kustom Foto Sendiri -->
+                    <div class="mt-4 pt-4 border-t border-love-100 text-center">
+                        <p class="text-[10px] text-gray-400">Tips: Kamu bisa mengganti URL gambar dalam kode dengan foto asli Ayu untuk kejutan nyata!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISI TAB: KUIS CINTA -->
+            <div id="tabKuis" class="w-full hidden">
+                <div class="glass rounded-3xl p-6 shadow-xl w-full mb-6">
+                    <h3 class="font-romantic text-3xl text-love-600 text-center mb-1">Seberapa Sayangkah Ayu?</h3>
+                    <p class="text-xs text-gray-500 text-center mb-6">Kuis mini iseng-iseng pembuktian rasa sayang 😜</p>
+
+                    <div id="quizArea">
+                        <div class="bg-white/80 rounded-2xl p-5 border border-love-50 shadow-sm text-center mb-6">
+                            <span class="text-love-500 font-bold text-xs uppercase tracking-wider">Pertanyaan</span>
+                            <p id="quizQuestion" class="font-semibold text-lg text-gray-700 mt-2">Seberapa kangen Ayu ke pacar hari ini?</p>
+                        </div>
+
+                        <div id="quizOptions" class="space-y-3">
+                            <!-- Tombol pilihan dimunculkan secara dinamis -->
+                        </div>
+                    </div>
+
+                    <!-- Area Hasil Kuis -->
+                    <div id="quizResult" class="hidden text-center py-6">
+                        <div class="w-20 h-20 bg-love-100 rounded-full flex items-center justify-center mx-auto mb-4 text-love-500">
+                            <i data-lucide="award" class="w-12 h-12 animate-bounce"></i>
+                        </div>
+                        <h4 class="font-romantic text-3xl text-love-600 mb-2">Jawaban Ayu Sempurna!</h4>
+                        <p class="text-sm text-gray-600 px-4 mb-6">Ahahaha, aku tahu kamu emang sesayang dan sekangen itu sama aku. Makasih ya sudah sangat tulus menyayangiku! 🥰</p>
+                        <button onclick="resetQuiz()" class="text-xs font-bold text-love-500 hover:underline">Mainkan Lagi</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISI TAB: PESAN BALASAN -->
+            <div id="tabPesan" class="w-full hidden">
+                <div class="glass rounded-3xl p-6 shadow-xl w-full mb-6">
+                    <h3 class="font-romantic text-3xl text-love-600 text-center mb-2">Tulis Pesan Untukku</h3>
+                    <p class="text-xs text-gray-500 text-center mb-6">Kirim balasan langsung, nanti disalin otomatis biar tinggal kirim ke WhatsApp aku!</p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-love-500 tracking-wider mb-2">Pilih Perasaanmu Saat Ini</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="selectFeeling('Senang & Gemas')" class="feeling-btn py-2 px-1 text-xs border rounded-xl font-medium border-love-200 bg-love-50 text-love-600">🥰 Senang</button>
+                                <button onclick="selectFeeling('Kangen Berat')" class="feeling-btn py-2 px-1 text-xs border rounded-xl font-medium border-gray-100 bg-white">🥺 Kangen</button>
+                                <button onclick="selectFeeling('Sangat Bersyukur')" class="feeling-btn py-2 px-1 text-xs border rounded-xl font-medium border-gray-100 bg-white">💖 Bersyukur</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-love-500 tracking-wider mb-2">Pesan Singkat Untukku</label>
+                            <textarea id="replyMessage" rows="3" placeholder="Aku seneng banget dapet ginian... I love you!" class="w-full p-3 rounded-xl border border-love-100 focus:outline-none focus:ring-2 focus:ring-love-400 text-sm"></textarea>
+                        </div>
+
+                        <button onclick="kirimBalasan()" class="w-full bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Kirim Balasan Romantis</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOMBOL KEJUTAN POP-UP UTAMA -->
+            <div class="w-full text-center mt-4">
+                <button onclick="tampilkanPopupKejutan()" class="floating-element inline-flex items-center gap-2 bg-gradient-to-r from-love-600 to-love-700 hover:from-love-700 hover:to-love-800 text-white font-bold py-4 px-8 rounded-full shadow-xl hover:shadow-love-500/50 transform hover:scale-105 transition-all text-base">
+                    <span>Sentuh Hati Ini Ayu ❤️</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- FOOTER ROMANTIS -->
+        <footer class="mt-12 text-center text-xs text-love-600 font-semibold z-10 w-full flex flex-col items-center gap-2">
+            <div class="flex items-center gap-1">
+                <span>Dibuat dengan cinta untuk Ayu</span>
+                <i data-lucide="heart" class="w-3.5 h-3.5 fill-current text-love-500 animate-ping"></i>
+            </div>
+            <p class="text-[10px] text-love-400/80">© 2026 Selamanya Bersamamu</p>
+        </footer>
+
+    </main>
+
+    <!-- ================= DIALOG POP-UP KEJUTAN (MODAL) ================= -->
+    <div id="loveModal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl relative border-4 border-love-100 animate-in fade-in zoom-in-95 duration-300">
+            <!-- Hiasan Atas -->
+            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-gradient-to-tr from-love-400 to-love-600 rounded-full flex items-center justify-center shadow-lg">
+                <i data-lucide="sparkles" class="w-10 h-10 text-white animate-spin-slow"></i>
+            </div>
+
+            <div class="mt-8 mb-6">
+                <h4 class="font-romantic text-4xl text-love-600 mb-4">Janji Aku Ke Ayu 🌹</h4>
+                <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                    "Aku berjanji akan selalu ada mendengarkan semua ceritamu, merayakan kesuksesanmu, menemanimu di masa sulitmu, dan selalu mencintaimu apa adanya."
+                </p>
+                <div class="p-3 bg-love-50 rounded-2xl border border-love-100 text-love-600 font-bold text-sm">
+                    Ayu, Will You Always Stay With Me? 🥰
+                </div>
+            </div>
+
+            <!-- Tombol Pilihan -->
+            <div class="flex gap-3">
+                <button onclick="pilihJawabanJanji('yes')" class="flex-1 bg-love-500 hover:bg-love-600 text-white font-bold py-3 rounded-xl shadow-md transition-all active:scale-95">
+                    Iya, Pasti! ❤️
+                </button>
+                <button id="noBtn" onmouseover="hindariTombolNo()" onclick="hindariTombolNo()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-500 font-bold py-3 rounded-xl transition-all">
+                    Nggak 😜
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Sukses Mini -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-900/90 text-white text-xs px-4 py-2.5 rounded-full shadow-lg z-50 flex items-center gap-2 hidden">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toastText">Pesan disalin!</span>
+    </div>
+
+    <script>
+        // Inisialisasi ikon Lucide
+        lucide.createIcons();
+
+        // Musik Latar Belakang
+        const music = document.getElementById('bgMusic');
+        let isMusicPlaying = false;
+
+        function toggleMusic() {
+            const btn = document.getElementById('musicToggleBtn');
+            const txt = document.getElementById('musicStatusText');
+            
+            if (isMusicPlaying) {
+                music.pause();
+                isMusicPlaying = false;
+                btn.innerHTML = `<i data-lucide="music" class="w-5 h-5"></i><span class="text-xs font-semibold pr-1 hidden md:inline">Putar Musik</span>`;
+            } else {
+                music.play().catch(() => {
+                    showToast("Harap interaksi dulu lalu nyalakan musik!");
+                });
+                isMusicPlaying = true;
+       
